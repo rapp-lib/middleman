@@ -19,12 +19,12 @@ class Dispatcher implements MiddlewareInterface
     /**
      * @var callable middleware resolver
      */
-    private $resolver;
+    public $resolver;
 
     /**
      * @var mixed[] unresolved middleware stack
      */
-    private $stack;
+    public $stack;
 
     /**
      * @param (callable|MiddlewareInterface|mixed)[] $stack middleware stack (with at least one middleware component)
@@ -80,22 +80,23 @@ class Dispatcher implements MiddlewareInterface
      *
      * @return Delegate
      */
-    private function resolve($index)
+    public function resolve($index)
     {
         if (isset($this->stack[$index])) {
-            return new Delegate(function (RequestInterface $request) use ($index) {
-                $middleware = $this->resolver
-                    ? call_user_func($this->resolver, $this->stack[$index])
-                    : $this->stack[$index]; // as-is
+            $_this = $this;
+            return new Delegate(function (RequestInterface $request) use ($index, $_this) {
+                $middleware = $_this->resolver
+                    ? call_user_func($_this->resolver, $_this->stack[$index])
+                    : $_this->stack[$index]; // as-is
 
                 switch (true) {
                     case $middleware instanceof MiddlewareInterface:
                     case $middleware instanceof ServerMiddlewareInterface:
-                        $result = $middleware->process($request, $this->resolve($index + 1));
+                        $result = $middleware->process($request, $_this->resolve($index + 1));
                         break;
 
                     case is_callable($middleware):
-                        $result = $middleware($request, $this->resolve($index + 1));
+                        $result = $middleware($request, $_this->resolve($index + 1));
                         break;
 
                     default:

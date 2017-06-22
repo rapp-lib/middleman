@@ -21,7 +21,7 @@ class Delegate implements DelegateInterface
     /**
      * @param callable $callback function (RequestInterface $request) : ResponseInterface
      */
-    public function __construct(callable $callback)
+    public function __construct($callback)
     {
         $this->callback = $callback;
     }

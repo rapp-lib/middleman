@@ -23,7 +23,7 @@ abstract class readable
     /**
      * @var string[] map where PHP error severity code => constant name
      */
-    public static $severity_names = [
+    public static $severity_names = array(
         E_ERROR             => "E_ERROR",
         E_USER_ERROR        => "E_USER_ERROR",
         E_CORE_ERROR        => "E_CORE_ERROR",
@@ -39,7 +39,7 @@ abstract class readable
         E_RECOVERABLE_ERROR => "E_RECOVERABLE_ERROR",
         E_DEPRECATED        => "E_DEPRECATED",
         E_USER_DEPRECATED   => "E_USER_DEPRECATED",
-    ];
+    );
 
     /**
      * @param mixed $value any type of PHP value
@@ -107,7 +107,7 @@ abstract class readable
      */
     public static function values(array $array)
     {
-        $formatted = array_map(['mindplay\\readable', 'value'], $array);
+        $formatted = array_map(array('mindplay\\readable', 'value'), $array);
 
         if (array_keys($array) !== range(0, count($array) - 1)) {
             foreach ($formatted as $name => $value) {
@@ -228,7 +228,7 @@ abstract class readable
             return "{stack-trace unavailable}";
         }
 
-        $formatted = [];
+        $formatted = array();
 
         foreach ($trace as $index => $entry) {
             $line = array_key_exists("line", $entry)
