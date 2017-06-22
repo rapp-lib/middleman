@@ -1,7 +1,7 @@
 {
-    "name": "mindplay/middleman",
+    "name": "rapp-lib/middleman",
     "type": "library",
-    "description": "PSR-7 middleware dispatcher. Let's stop trying to make this complicated.",
+    "description": "PSR-7 middleware dispatcher. Let's stop trying to make this complicated. | mindplay/middleman PHP5.3 compatibilty fork",
     "license": "LGPL-3.0+",
     "authors": [
         {
